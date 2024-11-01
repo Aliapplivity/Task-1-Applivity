@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee and Staff Information</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Enter Employee/Staff Information</h2>
+    <form id="infoForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        
+        <label for="age">Age:</label>
+        <input type="number" id="age" required>
+        
+        <label for="gender">Gender:</label>
+        <select id="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        
+        <label for="birthDate">Birth Date:</label>
+        <input type="date" id="birthDate" required>
+        
+        <label for="joiningDate">Joining Date:</label>
+        <input type="date" id="joiningDate" required>
+        
+        <label for="qualification">Qualification:</label>
+        <input type="text" id="qualification" required>
+        
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" id="phoneNumber" required>
+        <span id="phoneError" style="color: red; display: none;">Invalid phone number. Format: (123) 456-7890</span>
+        <button type="button" onclick="saveData()">Submit</button>
+    </form>
+    <a href="view.html">View Submitted Information</a>
+    <script src="script.js"></script>
+</body>
+</html>

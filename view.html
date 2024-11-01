@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Submitted Information</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Submitted Information</h2>
+    
+    <input type="text" id="searchName" placeholder="Search by Name" oninput="filterData()">
+    <input type="number" id="searchAge" placeholder="Search by Age" oninput="filterData()">
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Birth Date</th>
+                <th>Joining Date</th>
+                <th>Qualification</th>
+                <th>Phone Number</th>
+            </tr>
+        </thead>
+        <tbody id="dataBody"></tbody>
+    </table>
+    <script src="view.js"></script>
+</body>
+</html>
