@@ -9,60 +9,46 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="navbar">
-    <ul>
-        <li><a class="active" href="index.html">Input</a></li>
-        <li><a href="view.html">View</a></li>
-    </ul>
-    </div>
+    <div class="container">
+        <!-- Left Section -->
+        <div class="left-section">
+          <div class="content">
+            <h1>Information Form</h1>
+            <button class="back-button">View Information →</button>
+            <p>Add your information</p>
+          </div>
+        </div>
       
-    <h2>Enter Employee/Staff Information</h2>
-    <form id="infoForm">
-        <div class="Parent">
-        <label for="name">Name:</label>
-        <input type="text" id="name" placeholder="Full Name" required>
+        <!-- Right Section -->
+        <div class="right-section">
+          <div class="form-container">
+            <h2>Employee Information</h2>
+            <form id="infoForm">
+              <div class="input-group">
+                <input type="text" id="name" placeholder="Name" required>
+                <span class="error-message" id="nameError"></span>
+                <input type="number" id="age" placeholder="Age" required>
+                <span class="error-message" id="ageError"></span>
+              </div>
+              <div class="radio-group">
+                <label><input type="radio" name="gender" value="Male" required> Male</label>
+                <label><input type="radio" name="gender" value="Female"> Female</label>
+              </div>
+              <input type="date" id="birthDate" placeholder="Birth Date" required>
+              <input type="date" id="joiningDate" placeholder="Joining Date" required>
+              <select id="qualification" required>
+                <option value="">Qualification</option>
+                <option value="High School">High School</option>
+                <option value="Bachelor's">Bachelor's</option>
+                <option value="Master's">Master's</option>
+              </select>
+              <input type="tel" id="phoneNumber" placeholder="Phone Number" required>
+              <button type="submit" class="submit-button">Save</button>
+            </form>
+          </div>
         </div>
-        <div class="Parent">
-        <label for="age">Age:</label>
-        <input type="number" id="age" placeholder="Age" required>
-        </div>
-
-        <label for="gender">Gender:</label>
-        <div class="radio">
-            <input type="radio" id="male" name="gender" value="Male" required>
-            <label for="male">Male</label>
-            <input type="radio" id="female" name="gender" value="Female" required>
-            <label for="female">Female</label>
-            <input type="radio" id="other" name="gender" value="Other" required>
-            <label for="other">Other</label>
-        </div>
-        
-        <div>
-        <label for="birthDate">Birth Date:</label>
-        <input type="date" id="birthDate" required>
-        <span id="dateError" style="color: red; display: none;">Birth Date and Age do not match.</span>
-        </div>
-
-        <label for="joiningDate">Joining Date:</label>
-        <input type="date" id="joiningDate" required>
-        
-        <label for="qualification">Qualification:</label>
-        <select id="qualification" required>
-            <option value="">Select Qualification</option>
-            <option value="High School">High School</option>
-            <option value="Bachelor's Degree">Bachelor's Degree</option>
-            <option value="Master's Degree">Master's Degree</option>
-            <option value="PhD">PhD</option>
-            <option value="Other">Other</option>
-        </select>
-        
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="tel" id="phoneNumber" placeholder="Add phone number in format (xxx) xxx-xxxx" required>
-        <span id="phoneError" style="color: red; display: none;">Invalid phone number. Format: (123) 456-7890</span>
-        
-        <button type="button" onclick="validateAndSave()">Submit</button>
-    </form>
-    <a href="view.html">View Submitted Information</a>
+      </div>
+      
     <script src="script.js"></script>
 </body>
 </html>

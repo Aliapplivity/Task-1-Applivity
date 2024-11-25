@@ -1,94 +1,80 @@
-function validatePhoneNumber(phoneNumber) {
-    const phonePattern = /^\(\d{3}\) \d{3}-\d{7}$/;
-    return phonePattern.test(phoneNumber);
-}
-
-function validateAgeAndBirthDate(birthDate, age) {
-    const birthYear = new Date(birthDate).getFullYear();
-    const currentYear = new Date().getFullYear();
-    return currentYear - birthYear === parseInt(age);
-}
-
-function validateAndSave() {
+document.getElementById("infoForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent form submission
+  
+    // Get form fields
     const name = document.getElementById("name").value.trim();
     const age = document.getElementById("age").value.trim();
+    const gender = document.querySelector('input[name="gender"]:checked');
     const birthDate = document.getElementById("birthDate").value.trim();
     const joiningDate = document.getElementById("joiningDate").value.trim();
-    const qualification = document.getElementById("qualification").value;
+    const qualification = document.getElementById("qualification").value.trim();
     const phoneNumber = document.getElementById("phoneNumber").value.trim();
-    const phoneError = document.getElementById("phoneError");
-    const dateError = document.getElementById("dateError");
-
-    // Validation logic
-    if (!name || !age || !birthDate || !joiningDate || !qualification || !phoneNumber) {
-        alert("Please fill in all fields.");
-        return;
-    }
-    if (!validatePhoneNumber(phoneNumber)) {
-        phoneError.style.display = "block";
-        return;
+  
+    // Validation flags
+    let isValid = true;
+    let errorMessage = "";
+  
+    // Name validation
+    if (name === "") {
+        isValid = false;
+        document.getElementById("nameError").textContent = "Name cannot be empty.";
+      } else {
+        document.getElementById("nameError").textContent = "";
+      }
+  
+    // Age validation
+    if (age === "" || isNaN(age) || age < 18 || age > 100) {
+      isValid = false;
+      document.getElementById("ageError").textContent = "Age must be between 18 and 100.";
     } else {
-        phoneError.style.display = "none";
+      document.getElementById("ageError").textContent = "";
     }
-    if (!validateAgeAndBirthDate(birthDate, age)) {
-        dateError.style.display = "block";
-        return;
+  
+    // Gender validation
+    if (!gender) {
+      isValid = false;
+      errorMessage += "Please select a gender.\n";
+    }
+  
+    // Birth Date validation
+    if (birthDate === "") {
+      isValid = false;
+      errorMessage += "Birth date cannot be empty.\n";
     } else {
-        dateError.style.display = "none";
+      const birthYear = new Date(birthDate).getFullYear();
+      const currentYear = new Date().getFullYear();
+      if (currentYear - birthYear !== parseInt(age)) {
+        isValid = false;
+        errorMessage += "Age and birth date do not match.\n";
+      }
     }
-
-    // Get gender from radio buttons
-    const genderElements = document.getElementsByName("gender");
-    let gender = "";
-    for (const element of genderElements) {
-        if (element.checked) {
-            gender = element.value;
-            break;
-        }
+  
+    // Joining Date validation
+    if (joiningDate === "") {
+      isValid = false;
+      errorMessage += "Joining date cannot be empty.\n";
     }
-
-    const employeeData = {
-        name,
-        age,
-        gender,
-        birthDate,
-        joiningDate,
-        qualification,
-        phoneNumber,
-    };
-
-    const editIndex = localStorage.getItem("editIndex");
-    let allData = JSON.parse(localStorage.getItem("employeeData")) || [];
-
-    if (editIndex !== null) {
-        // Update existing data
-        allData[editIndex] = employeeData;
-        localStorage.removeItem("editIndex"); // Clear edit mode
+  
+    // Qualification validation
+    if (qualification === "") {
+      isValid = false;
+      errorMessage += "Please select a qualification.\n";
+    }
+  
+    // Phone Number validation
+    const phonePattern = /^\+\d{1,3}-\d{3}-\d{7}$/; // Example: +123-456-7890123
+    if (!phonePattern.test(phoneNumber)) {
+      isValid = false;
+      errorMessage += "Phone number must be in the format +123-456-7890123.\n";
+    }
+  
+    // Display errors or proceed
+    if (!isValid) {
+      alert(errorMessage);
     } else {
-        // Add new data
-        allData.push(employeeData);
+      alert("Form submitted successfully!");
+      // Here you can handle the form submission logic, e.g., saving the data.
+      event.target.submit(); // Optional: only submit when everything is valid
     }
-
-    localStorage.setItem("employeeData", JSON.stringify(allData));
-    alert("Data saved successfully!");
-    document.getElementById("infoForm").reset();
-}
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    const editIndex = localStorage.getItem("editIndex");
-    if (editIndex !== null) {
-        const allData = JSON.parse(localStorage.getItem("employeeData"));
-        const data = allData[editIndex];
-
-        // Populate the form fields with the selected data
-        document.getElementById("name").value = data.name;
-        document.getElementById("age").value = data.age;
-        document.querySelector(`input[name="gender"][value="${data.gender}"]`).checked = true;
-        document.getElementById("birthDate").value = data.birthDate;
-        document.getElementById("joiningDate").value = data.joiningDate;
-        document.getElementById("qualification").value = data.qualification;
-        document.getElementById("phoneNumber").value = data.phoneNumber;
-    }
-});
-
+  });
+  
