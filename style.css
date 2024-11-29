@@ -4,7 +4,6 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
   body {
     font-family: 'Arial', sans-serif;
     background-color: #423f5e;
@@ -82,6 +81,32 @@
   .form-container {
     width: 100%;
   }
+
+  .name-age {
+    margin-top: 10px;
+    display: flex;
+    width: fit-content;
+    margin-bottom: 10px;
+  }
+
+  .input-age {
+    margin-left: 100px;
+  }
+
+  .radio-h{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .gender-male {
+    display: flex;
+    gap: 5px;
+  
+  }
+  .gender-female {
+    display: flex;
+    gap: 5px;
+  }
   
   .input-group {
     display: flex;
@@ -96,7 +121,7 @@
     border-radius: 5px;
     background: #453f66;
     color: white;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
   
   input::placeholder, select {
@@ -105,6 +130,8 @@
   }
   
   .radio-group {
+    display: flex;
+    gap: 10px;
     margin-bottom: 15px;
   }
   
@@ -134,4 +161,13 @@
     display: block;
   }
   
+  /* General label styling */
+label {
+  display: inline-block; /* Ensures the label and input align */
+  margin-bottom: 10px; /* Adds some spacing below the label */
+  width: fi; /* Adjust this value to set consistent spacing between labels and inputs */
+  text-align: left; /* Aligns the label text to the right */
+}
+
+
   

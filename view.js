@@ -1,91 +1,71 @@
-window.onload = function () {
-    displayData();
-};
+function displayEmployees() {
+  const employees = JSON.parse(localStorage.getItem("employees")) || [];
+  const tableBody = document.getElementById("tableBody");
+  tableBody.innerHTML = ""; // Clear previous content
 
-function displayData() {
-    const allData = JSON.parse(localStorage.getItem("employeeData")) || [];
-    const dataBody = document.getElementById("dataBody");
-    dataBody.innerHTML = "";  // Clear existing data
+  // Get filter values
+  const nameFilter = document.getElementById("nameFilter").value.trim().toLowerCase();
+  const ageFilter = document.getElementById("ageFilter").value.trim();
 
-    allData.forEach((data, index) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${data.name}</td>
-            <td>${data.age}</td>
-            <td>${data.gender}</td>
-            <td>${data.birthDate}</td>
-            <td>${data.joiningDate}</td>
-            <td>${data.qualification}</td>
-            <td>${data.phoneNumber}</td>
-            <td>
-                <button onclick="editData(${index})"><i class="fas fa-edit"></i></button>
-                <button onclick="deleteData(${index})"><i class="fas fa-trash-alt"></i></button>
-            </td>
-        `;
-        dataBody.appendChild(row);
-    });
-}
+  // Filter and display employees
+  employees.forEach((employee, index) => {
+    const matchesName = !nameFilter || employee.name.toLowerCase().includes(nameFilter);
+    const matchesAge = !ageFilter || employee.age == ageFilter; // Compare as string
 
-function filterData() {
-    const nameFilter = document.getElementById("searchName").value.toLowerCase();
-    const ageFilter = document.getElementById("searchAge").value;
-    const allData = JSON.parse(localStorage.getItem("employeeData")) || [];
+    if (matchesName && matchesAge) {
+      const row = document.createElement("tr");
 
-    const filteredData = allData.filter(data => {
-        const matchesName = data.name.toLowerCase().includes(nameFilter);
-        const matchesAge = ageFilter ? data.age === ageFilter : true;
-        return matchesName && matchesAge;
-    });
+      row.innerHTML = `
+        <td>${employee.name}</td>
+        <td>${employee.age}</td>
+        <td>${employee.gender}</td>
+        <td>${employee.birthDate}</td>
+        <td>${employee.joiningDate}</td>
+        <td>${employee.qualification}</td>
+        <td>${employee.phoneNumber}</td>
+        <td>
+          <span class="status ${employee.status === 'active' ? 'status-active' : 'status-inactive'}">
+            ${employee.status || 'Inactive'}
+          </span>
+        </td>
+        <td class="actions">
+          <button class="edit" onclick="editEmployee(${index})">Edit</button>
+          <button class="delete" onclick="deleteEmployee(${index})">Delete</button>
+        </td>
+      `;
 
-    const dataBody = document.getElementById("dataBody");
-    dataBody.innerHTML = "";  // Clear existing data
-    filteredData.forEach((data, index) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${data.name}</td>
-            <td>${data.age}</td>
-            <td>${data.gender}</td>
-            <td>${data.birthDate}</td>
-            <td>${data.joiningDate}</td>
-            <td>${data.qualification}</td>
-            <td>${data.phoneNumber}</td>
-            <td>
-                <button onclick="editData(${index})"><i class="fas fa-edit"></i></button>
-                <button onclick="deleteData(${index})"><i class="fas fa-trash-alt"></i></button>
-            </td>
-        `;
-        dataBody.appendChild(row);
-    });
-}
-
-function editData(index) {
-    // Retrieve all data from localStorage
-    const allData = JSON.parse(localStorage.getItem("employeeData"));
-    const dataToEdit = allData[index];
-
-    // Save the index of the data being edited in localStorage (or a global variable)
-    localStorage.setItem("editIndex", index);
-
-    // Navigate to the input form page and populate it with the data
-    window.location.href = "index.html";
-
-    // Once on the form page, populate the fields (handled by on-page script)
-}
-
-
-function deleteData(index) {
-    // Confirmation dialog
-    const confirmDelete = confirm("Are you sure you want to delete this entry?");
-    if (!confirmDelete) {
-        // If the user clicks "Cancel", exit the function
-        return;
+      tableBody.appendChild(row);
     }
-
-    // If confirmed, proceed to delete the data
-    const allData = JSON.parse(localStorage.getItem("employeeData"));
-    allData.splice(index, 1); // Remove the data at the specified index
-    localStorage.setItem("employeeData", JSON.stringify(allData)); // Save the updated data
-    displayData(); // Refresh the table to reflect the deletion
-    alert("Entry deleted successfully!"); // Optional success message
+  });
 }
 
+// Event listeners for filter inputs
+document.getElementById("nameFilter").addEventListener("input", displayEmployees);
+document.getElementById("ageFilter").addEventListener("input", displayEmployees);
+
+
+// Other functions like deleteEmployee() and editEmployee() remain unchanged.
+
+  function deleteEmployee(index) {
+    const employees = JSON.parse(localStorage.getItem("employees")) || [];
+    const confirmDelete = confirm("Are you sure you want to delete this employee?");
+    if (confirmDelete) {
+      employees.splice(index, 1);
+      localStorage.setItem("employees", JSON.stringify(employees));
+      displayEmployees();
+    }
+  }
+  
+  function editEmployee(index) {
+    const employees = JSON.parse(localStorage.getItem("employees")) || [];
+    const employee = employees[index];
+  
+    // Redirect to the input page with pre-filled data
+    localStorage.setItem("editIndex", index);
+    localStorage.setItem("editData", JSON.stringify(employee));
+    window.location.href = "index.html"; // Assuming this is your form page
+  }
+  
+  // Load employees when the page is ready
+  window.onload = displayEmployees;
+  

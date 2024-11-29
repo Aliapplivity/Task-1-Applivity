@@ -14,7 +14,7 @@
         <div class="left-section">
           <div class="content">
             <h1>Information Form</h1>
-            <button class="back-button">View Information →</button>
+            <button class="back-button"><a href="view.html">View Information →</a></button>
             <p>Add your information</p>
           </div>
         </div>
@@ -24,27 +24,66 @@
           <div class="form-container">
             <h2>Employee Information</h2>
             <form id="infoForm">
-              <div class="input-group">
-                <input type="text" id="name" placeholder="Name" required>
+              <div class="name-age">
+              <div class="form-group">
+                <div class="input-name">
+                <label for="name">Name:</label>
+                <input type="text" id="name" placeholder="Enter your name">
                 <span class="error-message" id="nameError"></span>
-                <input type="number" id="age" placeholder="Age" required>
+                </div>
+              </div>
+            
+              <div class="form-group">
+                <div class="input-age">
+                <label for="age">Age:</label>
+                <input type="number" id="age" placeholder="Enter your age">
                 <span class="error-message" id="ageError"></span>
+                </div>
               </div>
-              <div class="radio-group">
-                <label><input type="radio" name="gender" value="Male" required> Male</label>
-                <label><input type="radio" name="gender" value="Female"> Female</label>
               </div>
-              <input type="date" id="birthDate" placeholder="Birth Date" required>
-              <input type="date" id="joiningDate" placeholder="Joining Date" required>
-              <select id="qualification" required>
-                <option value="">Qualification</option>
-                <option value="High School">High School</option>
-                <option value="Bachelor's">Bachelor's</option>
-                <option value="Master's">Master's</option>
-              </select>
-              <input type="tel" id="phoneNumber" placeholder="Phone Number" required>
-              <button type="submit" class="submit-button">Save</button>
+            
+              <div class="form-group">
+                <div class="radio-h">
+                <label class="radioGroupLabel">Gender:</label>
+                <div class="gender-male"><input type="radio" name="gender" value="Male"> <p>Male</p></div>
+                <div class="gender-female"><input type="radio" name="gender" value="Female"><p>Female</p></div>
+                <span class="error-message" id="genderError"></span>
+                </div>
+              </div>
+            
+              <div class="form-group">
+                <label for="birthDate">Birth Date:</label>
+                <input type="date" id="birthDate">
+                <span class="error-message" id="birthDateError"></span>
+              </div>
+            
+              <div class="form-group">
+                <label for="joiningDate">Joining Date:</label>
+                <input type="date" id="joiningDate">
+                <span class="error-message" id="joiningDateError"></span>
+              </div>
+            
+              <div class="form-group">
+                <label for="qualification">Qualification:</label>
+                <select id="qualification">
+                  <option value="">Select Qualification</option>
+                  <option value="High School">High School</option>
+                  <option value="Bachelor's Degree">Bachelor's Degree</option>
+                  <option value="Master's Degree">Master's Degree</option>
+                  <option value="PhD">PhD</option>
+                </select>
+                <span class="error-message" id="qualificationError"></span>
+              </div>
+            
+              <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" placeholder="+123-456-7890123">
+                <span class="error-message" id="phoneNumberError"></span>
+              </div>
+            
+              <button type="submit" class="submit-button">Submit</button>
             </form>
+            
           </div>
         </div>
       </div>
